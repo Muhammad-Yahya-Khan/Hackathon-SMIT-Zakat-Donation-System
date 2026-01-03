@@ -2,11 +2,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useAuth } from "../AuthContext";
+import * as authService from "../authService";
 
 function Register() {
     const navigate = useNavigate();
-    const { register } = useAuth();
 
     // Form state
     const [formData, setFormData] = useState({
@@ -39,7 +38,7 @@ function Register() {
         setLoading(true);
 
         try {
-            await register({
+            await authService.register({
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,

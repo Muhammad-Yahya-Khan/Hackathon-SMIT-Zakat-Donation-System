@@ -1,6 +1,6 @@
 // Main App Component - Handles all routes
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./useAuth";
 
 // Public Pages
 import Home from "./pages/Home";

@@ -2,11 +2,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useAuth } from "../AuthContext";
+import * as authService from "../authService";
 
 function Login() {
     const navigate = useNavigate();
-    const { login } = useAuth();
 
     // Form state
     const [email, setEmail] = useState("");
@@ -19,7 +18,7 @@ function Login() {
         setLoading(true);
 
         try {
-            const user = await login(email, password);
+            const user = await authService.login(email, password);
             toast.success("Login successful!");
 
             // Redirect based on role

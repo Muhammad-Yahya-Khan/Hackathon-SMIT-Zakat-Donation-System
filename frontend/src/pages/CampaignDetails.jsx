@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import api from "../api";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../useAuth";
 
 function CampaignDetails() {
     const { id } = useParams();

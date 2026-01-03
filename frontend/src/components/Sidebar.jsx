@@ -1,6 +1,6 @@
 // Sidebar Component - Side navigation for dashboard
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../useAuth";
 
 function Sidebar() {
     const { user } = useAuth();

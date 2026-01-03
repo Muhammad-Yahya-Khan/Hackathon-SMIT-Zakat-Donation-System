@@ -1,9 +1,16 @@
 // Navbar Component - Top navigation bar
-import { Link } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../useAuth";
+import * as authService from "../authService";
 
 function Navbar() {
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        authService.logout();
+        navigate("/login");
+    };
 
     return (
         <nav className="navbar">
@@ -18,7 +25,10 @@ function Navbar() {
                     <>
                         <Link to="/dashboard">Dashboard</Link>
                         <span>Welcome, {user.name}</span>
-                        <button className="btn btn-secondary" onClick={logout}>
+                        <button
+                            className="btn btn-secondary"
+                            onClick={handleLogout}
+                        >
                             Logout
                         </button>
                     </>
