@@ -34,3 +34,4 @@ coverage/
 # Database
 *.sqlite
 *.db
+.env
