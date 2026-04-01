@@ -14,7 +14,9 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors()); // Allow cross-origin requests
+app.use(
+    cors({ origin: "https://hackathon-smit-zakat-donation-syste.vercel.app" }),
+); // Allow cross-origin requests
 app.use(express.json()); // Parse JSON bodies
 
 // Import Routes
