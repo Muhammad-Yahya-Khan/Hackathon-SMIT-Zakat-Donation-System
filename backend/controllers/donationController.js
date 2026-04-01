@@ -76,21 +76,31 @@ exports.getMyStats = async (req, res) => {
     try {
         const donations = await Donation.find({ donor: req.user.id });
 
-        // Calculate stats
-        const totalDonated = donations.reduce((sum, d) => sum + d.amount, 0);
-        const verifiedAmount = donations
-            .filter((d) => d.status === "Verified")
-            .reduce((sum, d) => sum + d.amount, 0);
-        const pendingAmount = donations
-            .filter((d) => d.status === "Pending")
-            .reduce((sum, d) => sum + d.amount, 0);
-        const totalCount = donations.length;
+        // Calculate stats (use lowercase statuses defined in the model)
+        const totalAmount = donations.reduce(
+            (sum, d) => sum + (d.amount || 0),
+            0,
+        );
+        const totalDonations = donations.length;
 
+        const verifiedDonations = donations.filter(
+            (d) => d.status === "verified",
+        ).length;
+        const verifiedAmount = donations
+            .filter((d) => d.status === "verified")
+            .reduce((sum, d) => sum + (d.amount || 0), 0);
+
+        const pendingAmount = donations
+            .filter((d) => d.status === "pending")
+            .reduce((sum, d) => sum + (d.amount || 0), 0);
+
+        // Return keys expected by the frontend Dashboard
         res.json({
-            totalDonated,
+            totalDonations,
+            totalAmount,
+            verifiedDonations,
             verifiedAmount,
             pendingAmount,
-            totalCount,
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
